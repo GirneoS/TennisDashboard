@@ -1,0 +1,7 @@
+label, input{
+    position: relative;
+    display: block;
+}
+player1_input{
+    float: left;
+}
