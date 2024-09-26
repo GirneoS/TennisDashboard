@@ -1,7 +1,6 @@
-package com.ozhegov.tennis.dto;
+package com.ozhegov.tennis.model.dto;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,8 +13,17 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class MatchDTO implements Serializable {
+public class Match implements Serializable {
+    public Match(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.sets1=0;
+        this.games1=0;
+        this.points1=0;
+        this.sets2=0;
+        this.games2=0;
+        this.points2=0;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,14 +31,25 @@ public class MatchDTO implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "player1_id")
-    private PlayerDTO player1;
+    private Player player1;
     @ManyToOne
     @JoinColumn(name = "player2_id")
-    private PlayerDTO player2;
+    private Player player2;
     @ManyToOne
     @JoinColumn(name = "winner_id")
-    private PlayerDTO winner;
-
+    private Player winner;
+    @Transient
+    private int sets1;
+    @Transient
+    private int games1;
+    @Transient
+    private int points1;
+    @Transient
+    private int sets2;
+    @Transient
+    private int games2;
+    @Transient
+    private int points2;
 
     @Override
     public String toString() {

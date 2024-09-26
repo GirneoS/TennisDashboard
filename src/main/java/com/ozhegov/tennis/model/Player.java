@@ -1,4 +1,4 @@
-package com.ozhegov.tennis.dto;
+package com.ozhegov.tennis.model.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlayerDTO implements Serializable {
+public class Player implements Serializable {
     @Id
     private long id;
     private String name;
