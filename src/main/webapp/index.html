@@ -4,12 +4,40 @@
     <meta charset="UTF-8">
     <title>NewMatch</title>
 </head>
+<style>
+    body{
+        font-family: Ubuntu;
+    }
+    header a{
+        text-decoration: none;
+        color: grey;
+    }
+    header a:hover{
+        color: black;
+    }
+    header{
+        display: flex;
+        justify-content: space-around;
+        font-size: 20px;
+    }
+</style>
 <body>
-<form action="/Tennis_war_exploded/main/" method="post">
-    <div class="container">
-        Имя игрока 1<input type="text" name="player1" id="player1">
-        Имя игрока 2<input type="text" name="player2" id="player2">
-        <input type="submit" value="Начать">
+<header>
+    <a href="http://localhost:8081/Tennis_war_exploded/">New match</a>
+    <a href="all-matches.jsp">Past matches</a>
+</header>
+<form action="/Tennis_war_exploded/" method="post">
+
+    <div class="content">
+        <div>
+            <label>Имя игрока 1<input type="text" name="player1" id="player1"></label>
+        </div>
+        <div>
+            <label>Имя игрока 2<input type="text" name="player2" id="player2"></label>
+        </div>
+        <div>
+            <input type="submit" value="Начать">
+        </div>
     </div>
 </form>
 </body>

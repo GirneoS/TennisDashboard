@@ -3,12 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
-<!--        <servlet>-->
-<!--            <servlet-name>Main</servlet-name>-->
-<!--            <servlet-class>com.ozhegov.tennis.controller.NewMatchServlet</servlet-class>-->
-<!--        </servlet>-->
-<!--        <servlet-mapping>-->
-<!--            <servlet-name>Main</servlet-name>-->
-<!--            <url-pattern>/new-match</url-pattern>-->
-<!--        </servlet-mapping>-->
+    <servlet>
+        <servlet-name>currentMatch</servlet-name>
+        <jsp-file>/current-match.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>currentMatch</servlet-name>
+        <url-pattern>/match-score?uuid=*/current-match</url-pattern>
+    </servlet-mapping>
 </web-app>

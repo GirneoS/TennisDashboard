@@ -17,7 +17,7 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">create-drop</property>
 
-        <mapping class="com.ozhegov.tennis.dto.MatchDTO"/>
-        <mapping class="com.ozhegov.tennis.dto.PlayerDTO"/>
+        <mapping class="com.ozhegov.tennis.model.MatchDTO"/>
+        <mapping class="com.ozhegov.tennis.model.Player"/>
     </session-factory>
 </hibernate-configuration>

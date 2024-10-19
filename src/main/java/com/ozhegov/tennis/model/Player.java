@@ -1,4 +1,4 @@
-package com.ozhegov.tennis.model.dto;
+package com.ozhegov.tennis.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Players")
+@Table(name = "players")
 @Getter
 @Setter
 @AllArgsConstructor

@@ -1,18 +1,14 @@
-package com.ozhegov.tennis.model.dto;
+package com.ozhegov.tennis.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 
-
-@Entity
-@Table(name = "Matches")
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class Match implements Serializable {
     public Match(Player player1, Player player2) {
         this.player1 = player1;
@@ -23,41 +19,33 @@ public class Match implements Serializable {
         this.sets2=0;
         this.games2=0;
         this.points2=0;
+        this.advantagePlayerId=0;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "player1_id")
     private Player player1;
-    @ManyToOne
-    @JoinColumn(name = "player2_id")
     private Player player2;
-    @ManyToOne
-    @JoinColumn(name = "winner_id")
     private Player winner;
-    @Transient
+
     private int sets1;
-    @Transient
     private int games1;
-    @Transient
     private int points1;
-    @Transient
     private int sets2;
-    @Transient
     private int games2;
-    @Transient
     private int points2;
+    private long advantagePlayerId;
+    private boolean tieBreak;
 
     @Override
     public String toString() {
-        return "MatchDTO{" +
+        return "Match{" +
                 "id=" + id +
                 ", player1='" + player1 + '\'' +
                 ", player2='" + player2 + '\'' +
                 ", winner='" + winner + '\'' +
+                ", points1=" + points1 + '\t' +
+                ", points2=" + points2 +
                 '}';
     }
 }

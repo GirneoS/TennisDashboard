@@ -1,23 +1,23 @@
 package com.ozhegov.tennis.controller;
 
 import java.io.*;
+import java.util.UUID;
 
-import com.ozhegov.tennis.dao.MatchDAO;
-import com.ozhegov.tennis.dto.MatchDTO;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.Servlet;
-import jakarta.servlet.ServletContext;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.ozhegov.tennis.model.Message;
+import com.ozhegov.tennis.service.NewMatchService;
+import jakarta.persistence.NoResultException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet("/new-match/")
+@WebServlet("/")
 public class NewMatchServlet extends HttpServlet {
+    private NewMatchService newMatchservice;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MatchDAO dao = new MatchDAO();
-        System.out.println(dao.getAll());
-
+        resp.addHeader("Content-Type","text/html;charset=UTF-8");
         resp.setContentType("text/html");
 
         PrintWriter pw = resp.getWriter();
@@ -28,19 +28,24 @@ public class NewMatchServlet extends HttpServlet {
                 pw.println(line);
         }
     }
+    //Проверяет существование игроков в БД, создает экземпляр матча и редиректит на страницу начатого матча
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        resp.setContentType("text/html");
-        System.out.println("AaaaaAAAAA");
-        System.out.println(req.getParameterMap().entrySet());
+        try{
+            newMatchservice = new NewMatchService();
+            UUID uuid = newMatchservice.startMatch(req.getParameter("player1"), req.getParameter("player2"));
 
-        PrintWriter writer = resp.getWriter();
-        writer.println("<html>");
-        writer.println("<h1>Hi</h1>");
-        writer.println("</html>");
-        ServletContext context = req.getServletContext();
-        RequestDispatcher rd = context.getRequestDispatcher("/current-match/");
-        rd.forward(req,resp);
+            resp.sendRedirect("http://localhost:8081/Tennis_war_exploded/match-score?uuid="+uuid);
+
+        }catch(NoResultException e) {
+            resp.addHeader("Content-Type","application/json;charset=UTF-8");
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+
+            Message messageError = new Message("Игрок не существует в БД");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            resp.getWriter().write(gson.toJson(messageError));
+        }
 
     }
 
