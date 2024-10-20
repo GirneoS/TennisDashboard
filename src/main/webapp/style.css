@@ -25,8 +25,9 @@ table{
     height: 200px;
     width: 300px;
 }
-/*caption{*/
-/*    font-weight: bold;*/
-/*    font-size: 20px;*/
-/*    color: darkgray;*/
+/*#search-container{*/
+/*    display: inline-block;*/
 /*}*/
+form.search-form{
+    display: inline-block;
+}

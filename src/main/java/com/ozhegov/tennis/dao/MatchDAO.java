@@ -45,23 +45,24 @@ public class MatchDAO {
         session.close();
     }
     public List<MatchDTO> getByPlayerName(String name){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
 
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<MatchDTO> cq = cb.createQuery(MatchDTO.class);
 
-        Root<MatchDTO> matchTable = cq.from(MatchDTO.class);
-        Join<MatchDTO, Player> playerJoin1 = matchTable.join("player1", JoinType.INNER);
-        Join<MatchDTO, Player> playerJoin2 = matchTable.join("player2", JoinType.INNER);
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<MatchDTO> cq = cb.createQuery(MatchDTO.class);
 
-        Predicate player1Predicate = cb.equal(playerJoin1.get("name"), name);
-        Predicate player2Predicate = cb.equal(playerJoin2.get("name"), name);
+            Root<MatchDTO> matchTable = cq.from(MatchDTO.class);
+            Join<MatchDTO, Player> playerJoin1 = matchTable.join("player1", JoinType.INNER);
+            Join<MatchDTO, Player> playerJoin2 = matchTable.join("player2", JoinType.INNER);
 
-        cq.select(matchTable).where(cb.or(player1Predicate, player2Predicate));
+            Predicate player1Predicate = cb.equal(playerJoin1.get("name"), name);
+            Predicate player2Predicate = cb.equal(playerJoin2.get("name"), name);
 
-        TypedQuery<MatchDTO> query = session.createQuery(cq);
+            cq.select(matchTable).where(cb.or(player1Predicate, player2Predicate));
 
-        session.close();
-        return query.getResultList();
+            TypedQuery<MatchDTO> query = session.createQuery(cq);
+
+            return query.getResultList();
+        }
     }
 }

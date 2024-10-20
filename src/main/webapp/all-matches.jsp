@@ -25,17 +25,25 @@
             if(name!=null){
                 list = matchDAO.getByPlayerName(name);
             }
+            if(request.getParameter("reset")!=null){
+                list = matchDAO.getAll();
+            }
         }
     %>
     <header>
         <a href="http://localhost:8081/Tennis_war_exploded/">New match</a>
         <a href="all-matches.jsp">Past matches</a>
     </header>
-    <form method="get" action="http://localhost:8081/Tennis_war_exploded/all-matches.jsp">
-        <label for="playerName">Поиск по имени игрока</label>
-        <input type="text" name="playerName" id="playerName">
-        <input type="submit" value="Поиск">
-    </form>
+    <div id="search-container">
+        <form method="get" action="http://localhost:8081/Tennis_war_exploded/all-matches.jsp" class="search-form">
+            <label for="playerName">Поиск по имени игрока</label><br/>
+            <input type="text" name="playerName" id="playerName">
+            <input type="submit" value="Поиск">
+        </form>
+        <form method="get" action="http://localhost:8081/Tennis_war_exploded/all-matches.jsp" class="search-form">
+            <input type="submit" name="reset" value="Сбросить">
+        </form>
+    </div>
     <table>
         <thead>
             <tr>
